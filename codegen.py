@@ -70,9 +70,9 @@ else:
   on_android = True
 
 code_generator = CodeGenerator.load_file(code_file_path)
-print >>result_out, ("Last code: " + code_generator.code)
+print >>result_out, ("Last code: " + str(code_generator.code))
 code_generator.generate_code_if_expired()
-print >>result_out, ("New  code: " + code_generator.code)
+print >>result_out, ("New  code: " + str(code_generator.code))
 code_generator.write_file(code_file_path)
 
 if on_android:
