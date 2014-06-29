@@ -14,7 +14,7 @@ class CodeGenerator(object):
     self.last_generated_at = last_generated_at
     self.code = code
 
-  def generate_code_if_expired():
+  def generate_code_if_expired(self):
     today = date.today()
     if self.last_generated_at and (self.last_generated_at + self.VALID_FOR) < today:
       self.code = randint(0, 9999)
