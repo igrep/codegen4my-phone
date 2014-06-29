@@ -34,7 +34,7 @@ class CodeGenerator(object):
 
   @classmethod
   def get_empty(klass):
-    klass(0, None)
+    return klass(0, None)
 
   @classmethod
   def load_file(klass, path):
