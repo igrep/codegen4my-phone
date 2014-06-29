@@ -39,7 +39,8 @@ class CodeGenerator(object):
   @classmethod
   def load_file(klass, path):
     try:
-      with open(path, 'r') as f: return klass.parse_line(f.readline())
+      with open(path, 'r') as f:
+        return klass.parse_line(f.readline())
     except IOError:
       return klass.get_empty()
 
