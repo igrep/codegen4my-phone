@@ -66,7 +66,7 @@ else:
 
   import StringIO
   result_out = StringIO.StringIO(u'')
-  code_file_path = '/storage/emulated0/My/code.txt'
+  code_file_path = '/storage/emulated/0/My/code.txt'
 
   on_android = True
 
