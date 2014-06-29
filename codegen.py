@@ -14,15 +14,16 @@ class CodeGenerator(object):
   def __init__(self, code, last_generated_at):
     self.last_generated_at = last_generated_at
     self.code = code
+    self.changed = False
 
   def generate_code_if_expired(self):
     today = date.today()
     if (self.last_generated_at is None) or (self.last_generated_at + self.VALID_FOR) <= today:
       self.code = randint(0, 9999)
       self.last_generated_at = today
-      return self.code
+      self.changed = True
     else:
-      return None
+      self.changed = False
 
   def write_file(self, path):
     with open(path, 'w') as f: f.write(self.to_line())
@@ -74,7 +75,7 @@ code_generator = CodeGenerator.load_file(code_file_path)
 print >>result_out, ("Last code: " + str(code_generator.code))
 code_generator.generate_code_if_expired()
 print >>result_out, ("New  code: " + str(code_generator.code))
-code_generator.write_file(code_file_path)
+if code_generator.changed: code_generator.write_file(code_file_path)
 
 if on_android:
   droid.dialogCreateAlert(
