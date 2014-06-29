@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import date
+from datetime import datetime
 from datetime import timedelta
 from random import randint
 
@@ -46,9 +47,9 @@ class CodeGenerator(object):
 
   @classmethod
   def parse_line(klass, line):
-    cells = self.DELIMITER.split(line)
+    cells = line.strip().split(klass.DELIMITER)
     if len(cells) >= 2:
-      return klass(cells[0], date.strptime(cells[1], self.DATE_FORMAT))
+      return klass(cells[0], datetime.strptime(cells[1], klass.DATE_FORMAT).date())
     else:
       return klass.get_empty()
 
