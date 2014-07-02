@@ -1,0 +1,16 @@
+@startuml{sequence-codegen.png}
+title Code Generator for My Phone, based on SL4A
+
+actor Me as me << User >>
+participant "My Phone" as myPhone << Android >>
+participant Main as main << Main Program >>
+participant CodeGen as codeGen << CodeGenerator >>
+
+me -> myPhone: Tap Script Icon
+myPhone -> main: Execute codegen.py
+
+create codeGen
+main -> codeGen: Instantiate CodeGenerator object
+destroy codeGen
+
+@enduml
