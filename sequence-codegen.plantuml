@@ -5,12 +5,39 @@ actor Me as me << User >>
 participant "My Phone" as myPhone << Android >>
 participant Main as main << Main Program >>
 participant CodeGen as codeGen << CodeGenerator >>
+participant CodeFile as codeFile << File >>
+participant SystemClock as clock << System Clock >>
 
 me -> myPhone: Tap Script Icon
 myPhone -> main: Execute codegen.py
+activate main
 
 create codeGen
 main -> codeGen: Instantiate CodeGenerator object
+codeGen -> codeFile: Open code file
+activate codeFile
+codeGen <-- codeFile: Load and parse code file
+deactivate codeFile
+main -> codeGen : Ask current code
+main <-- codeGen
+
+codeGen -> clock : Ask current time
+codeGen <-- clock
+
+codeGen -> codeGen : Check if code is still valid
+opt code expires
+  codeGen -> codeGen : Publish new code
+  codeGen -> codeFile : Write the new code
+  activate codeFile
+  deactivate codeFile
+end
+
+main -> codeGen : Ask current code
+main <-- codeGen
+
+myPhone <-- main : Build dialog message of the old and new codes
+deactivate main
+me <-- myPhone : Display dialog message of the old and new codes
 destroy codeGen
 
 @enduml
